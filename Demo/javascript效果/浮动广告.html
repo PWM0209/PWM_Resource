@@ -1,0 +1,88 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>漂浮广告</title>
+        <style>
+            #ad {
+                border:solid 1px gray;
+                position:absolute;
+                left:10px;
+                top:90px;
+                width:72px;
+                height:130px;
+                background-color:#eee;
+                font-size:12px;
+                cursor:pointer;
+            }
+            #ad div {
+                text-align:center;
+            }
+            </style>
+        <script>
+            //记录垂直和水平滚动条的位置
+            var _offsetY = 0;
+            var _offsetX = 0;
+            //记录window.setTimeout定时操作的句柄
+            var _handler;
+            //图片的初始移动速度和方向
+            var x = 3, y = 3;
+            
+            //监听滚动条滚动事件，确保广告随着滚动条移动
+            window.onscroll = function() {
+                var _offY = document.body.scrollTop - _offsetY;        //垂直滚动条的位移
+                _offsetY = document.body.scrollTop;                    //记录垂直滚动条位置
+                var _offX = document.body.scrollLeft - _offsetX;    //水平滚动条的位移
+                _offsetX = document.body.scrollLeft;                   //记录水平滚动条位置
+                var ad = document.getElementById('ad');
+                ad.style.top = ad.offsetTop + _offY;         //确保图片出现在页面视野内
+                ad.style.left = ad.offsetLeft + _offX;
+                
+            }
+            
+            function move() {
+                var ad = document.getElementById('ad');
+                var w = document.body.clientWidth - 72;       //图片可以横向移动的范围，72为广告的宽度
+                var h = document.body.clientHeight - 130;     //图片可以纵向移动的范围，130为广告的高度
+                
+                //如果广告移动到了屏幕左右两边，更改x轴的移动方向
+                if (ad.offsetLeft + x - _offsetX > w || ad.offsetLeft + x - _offsetX < 0) {
+                    x = -x;
+                }
+                //alert(ad.offsetTop + y - _offsetY);
+                //如果广告移动到了屏幕上下两边，更改y轴的移动方向
+                if (ad.offsetTop + y - _offsetY >  h || ad.offsetTop + y - _offsetY  < 0) {
+                    y = -y;
+                }
+                //修改广告坐标，移动广告
+                ad.style.left = ad.offsetLeft + x;
+                ad.style.top = ad.offsetTop + y;
+                //0.03秒后再次移动广告
+                _handler = window.setTimeout('move()', 30);
+            }
+            
+            //点击关闭广告事件
+            function close_onclick() {
+                var ad = document.getElementById('ad');
+                //隐藏层，并清空层中的内容
+                ad.style.display = 'none';
+                ad.innerHTML = '';
+                //停止广告的移动
+                window.clearTimeout(_handler);
+            }
+            
+            //点击广告图片事件
+            function ad_onclick() {
+                //跳转到广告页面
+                window.location = 'http://www.myad.com';
+            }
+            </script>
+</head>
+    
+    <body onLoad="move()">
+        <div id="ad" onMouseOver="window.clearInterval(_handler);" onMouseOut="move()">
+            <img src="ad.jpg" width="70" onClick="ad_onclick()"/>
+            <div onClick="close_onclick()">关闭</div>
+        </div>
+        
+    </body>
+</html>

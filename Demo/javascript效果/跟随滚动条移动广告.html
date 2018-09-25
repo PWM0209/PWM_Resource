@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>跟随滚动条移动的广告</title>
+<style>
+#container {
+	margin-left:15%;		/*在页面左侧留出显示广告的位置*/
+}
+#ad {
+	position:absolute;		/*绝对定位*/
+	left:10px;				/*位置信息*/
+	top:90px;
+	width:72px;
+	height:130px;
+	border:solid 1px gray;	/*边框样式*/
+	background-color:#eee;	/*背景色*/
+	font-size:12px;			/*文字大小*/
+	cursor:pointer;			/*鼠标图标*/
+}
+#ad div {
+	text-align:center;
+}
+</style>
+<script>
+//记录window.setTimeout定时操作的句柄
+var _handler;	
+
+window.onscroll = function() {
+	//如果上一次的移动效果还未完成则终止
+	if (_handler) window.clearTimeout(_handler);
+	var ad = document.getElementById('ad');
+	var y1 = ad.offsetTop;	//获取广告的当前位置
+	var x1 = ad.offsetLeft;	//获取广告的当前位置
+	var y2 = 90 + document.body.scrollTop;  //计算出希望移动到的新位置
+	var x2 = 10 + document.body.scrollLeft;  //计算出希望移动到的新位置
+	//开始移动效果
+	move(y1, y2, x1, x2);
+}
+
+function move(y1, y2, x1, x2) {
+	var ad = document.getElementById('ad');
+    var needMoveOn = false;
+	//判断y方向是否已经接近了目标位置
+	if (y1 + (y2 - y1) / 5 >= y2) {
+		//如果已经接近了目标职位，将图片移动到目标位置
+		ad.style.top = y2;
+		//释放句柄引用
+		_handler = null;
+	} else {
+		//如果远离目标位置，每次移动相距距离的1/5
+		y1+= (y2 - y1) / 5;
+		ad.style.top = y1;
+        needMoveOn = true;
+	}
+
+    //判断x方向是否已经接近了目标位置
+	if (x1 + (x2 - x1) / 5 >= x2) {
+		//如果已经接近了目标职位，将图片移动到目标位置
+		ad.style.left = x2;
+		//释放句柄引用
+		_handler = null;
+	} else {
+		//如果远离目标位置，每次移动相距距离的1/5
+		x1+= (x2 - x1) / 5;
+		ad.style.left = x1;
+        needMoveOn = true;
+	}
+
+    //0.05秒后进行下一次移动
+    if (needMoveOn) _handler = window.setTimeout('move(' + y1 + ', ' + y2 + ', ' + x1 + ', ' + x2 + ')', 50);
+
+}
+
+//点击关闭广告事件
+function close_onclick() {
+	var ad = document.getElementById('ad');
+	//隐藏层，并清空层中的内容
+	ad.style.display = 'none';
+	ad.innerHTML = '';
+}
+
+//点击广告图片事件
+function ad_onclick() {
+	//跳转到广告页面
+	window.location = 'http://www.myad.com';
+}
+</script>
+</head>
+
+<body>
+<div id="ad">
+	<img src="ad.jpg" width="70" onClick="ad_onclick()"/>
+    <div onClick="close_onclick()">关闭</div>
+</div>
+<div id="container">
+<img src="page.jpg"/></div>
+</body>
+</html>

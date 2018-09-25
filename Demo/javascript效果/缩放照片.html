@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>onmousewheel事件</title>
+
+<script type="text/javascript">
+	function img_onmousewheel(who, e) {
+		if (e.wheelDelta > 0) who.width = who.width + 50;
+		if (e.wheelDelta < 0 && who.width > 50) who.width = who.width - 50;
+	}
+</script>
+
+</head>
+
+<body>
+<h1>照片浏览</h1>
+<p>可以在照片上滚动鼠标滚轴进行缩放</p>
+<div id="x"></div>
+<img src="sj.jpg" width="640" onmousewheel="img_onmousewheel(this, event)"/>
+</body>
+</html>

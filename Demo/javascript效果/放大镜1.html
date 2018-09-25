@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+		body{
+			margin: 0;
+		}
+		#small{
+			width: 80px;
+			height: 80px;
+			display: none;
+			border-radius: 40px;
+			z-index: 5;
+			background-repeat: no-repeat;
+			background-image: url("sj.jpg");
+			background-position:0px 0px;
+			position: absolute;
+		}
+		#big{
+			width: 400px;
+			height: 300px;
+			background-image: url("sj2.jpg");
+			background-repeat: no-repeat;
+			background-size: 400px 300px;
+			position: relative;
+			background-color: #CCC;
+			margin: 0 auto;
+		}
+		</style>
+	</head>
+	<body>
+		<h1 align="center">放大镜1</h1>
+		<div id="big">
+			<div id="small"></div>
+		</div>
+		<div id="msg"></div>
+	</body>
+</html>
+<script type="text/javascript">
+var small = document.getElementById("small");
+var big = document.getElementById("big");
+big.onmouseover = function(){
+	big.onmousemove = function(et){
+		et = et || window.event;
+		var smallposLeft = et.clientX-big.offsetLeft-40;//计算小div的left定位：鼠标坐标X-大div距离外部容器的left距离-小div的宽度的一半
+		var smallposTop = et.clientY-big.offsetTop-40;//计算小div的top定位：鼠标坐标y-大div距离外部容器的top距离-小div的高度的一半
+		if(smallposLeft < 0){//解决bug（小div不能移动超出大div的范围）
+			smallposLeft  = 0;
+		}
+		if(smallposLeft > 320){
+			smallposLeft  = 320;
+		}
+		if(smallposTop < 0){
+			smallposTop = 0;	
+		}
+		if(smallposTop > 220){
+			smallposTop = 220;	
+		}
+		small.style.left = smallposLeft+"px";
+		small.style.top = smallposTop+"px";
+		small.style.display = "block";//默认是让小div隐藏的
+		var smallbgX = (et.clientX - big.offsetLeft)*2;
+		//计算在小div的大图背景坐标X:鼠标在小图上的映射坐标（鼠标坐标X-大div距离外部容器的left距离）*大图和小图的宽度倍数（小div背景图宽800px/大div背景图宽400px ）
+		var smallbgY = (et.clientY - big.offsetTop)*2;
+		//计算方式同上
+		if(smallbgX < 40){//解决bug（小div上的背景显示不能超过图片边界）
+			smallbgX = 40;	
+		}
+		if(smallbgY < 40){
+			smallbgY = 40;	
+		}
+		if(smallbgX > 760){
+			smallbgX = 760;	
+		}
+		if(smallbgY > 560){
+			smallbgY = 560;	
+		}
+		var left = (smallbgX - 40)*-1;
+		var top= (smallbgY - 40)*-1;
+		small.style.opacity = 1;
+		small.style.backgroundPosition= left+"px "+top+"px";
+	}
+}
+big.onmouseout = function(){
+		small.style.display = "none";
+		big.onmousemove = null;
+}
+</script>

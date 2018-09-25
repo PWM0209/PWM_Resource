@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>响应式布局</title>
+
+<style type="text/css">
+
+body {
+	font: 1em/150% Arial, Helvetica, sans-serif;
+}
+a {
+	color: #669;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+h1 {
+	font: bold 36px/100% Arial, Helvetica, sans-serif;
+}
+
+/************************************************************************************
+布局样式
+*************************************************************************************/
+#pagewrap {
+	padding: 5px;
+	width: 960px;
+	margin: 20px auto;
+}
+#header {
+	height: 180px;
+}
+#content {
+	width: 600px;
+	float: left;
+}
+#sidebar {
+	width: 300px;
+	float: right;
+}
+#footer {
+	clear: both;
+}
+
+/************************************************************************************
+MEDIA QUERIES
+*************************************************************************************/
+
+@media screen and (max-width: 980px) {
+	
+	#pagewrap {
+		width: 94%;
+	}
+	#content {
+		width: 65%;
+	}
+	#sidebar {
+		width: 30%;
+	}
+
+}
+
+
+@media screen and (max-width: 700px) {
+
+	#content {
+		width: auto;
+		float: none;
+	}
+	#sidebar {
+		width: auto;
+		float: none;
+	}
+
+}
+
+@media screen and (max-width: 480px) {
+
+	#header {
+		height: auto;
+	}
+	h1 {
+		font-size: 24px;
+	}
+	#sidebar {
+		display: none;
+	}
+
+}
+
+#content {
+	background: #f8f8f8;
+}
+#sidebar {
+	background: #f0efef;
+}
+#header, #content, #sidebar {
+	margin-bottom: 5px;
+}
+#pagewrap, #header, #content, #sidebar, #footer {
+	border: solid 1px #ccc;
+}
+
+</style>
+
+
+<body youdao="bind">
+
+<div id="pagewrap">
+
+	<div id="header">
+		<h1>Header</h1>
+		<p>Tutorial by <a href="http://webdesignerwall.com/">Web Designer Wall</a> (read <a href="http://webdesignerwall.com/tutorials/responsive-design-in-3-steps">related article</a>)</p>
+	</div>
+
+	<div id="content">
+		<h2>Content</h2>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+	</div>
+
+	<div id="sidebar">
+		<h3>Sidebar</h3>
+		<p>text</p>
+		<p>text</p>
+	</div>
+	
+	<div id="footer">
+		<h4>Footer</h4>
+	</div>
+
+</div>
+
+
+
+<div id="haloword-lookup" class="ui-widget-content ui-draggable"><div id="haloword-title"><span id="haloword-word"></span><a herf="#" id="haloword-pron" class="haloword-button" title="发音"></a><audio id="haloword-audio"></audio><div id="haloword-control-container"><a herf="#" id="haloword-add" class="haloword-button" title="加入单词表"></a><a herf="#" id="haloword-remove" class="haloword-button" title="移出单词表"></a><a href="http://webdesignerwall.com/demo/responsive-design/index.html#" id="haloword-open" class="haloword-button" title="查看单词详细释义" target="_blank"></a><a herf="#" id="haloword-close" class="haloword-button" title="关闭查询窗"></a></div><br style="clear: both;"></div><div id="haloword-content"></div></div></body></html>

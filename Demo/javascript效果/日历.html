@@ -1,0 +1,75 @@
+<!DOCTYPE html >
+<html lang="en" >
+<head>
+<meta charset="utf-8" />
+<title>无标题文档</title>
+<script>
+var date = new Date();
+var year = date.getFullYear();
+var month = date.getMonth()+1;
+var day = date.getDate();
+var days = 0;//当月总天数
+if((year % 4 == 0 && year % 100 != 0) || year %400 == 0){
+//闰年
+	days = getDays(month,true);	
+}else{
+	days = getDays(month,false);		
+}
+date.setDate(1);//把当前日期设置为1号
+var weeks = date.getDay();
+var rows = parseInt((days+7+weeks)/7)
+document.write("<table border='1' width='400' height='300'>");
+document.write("<tr align='center'><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>");
+var num = 1;
+for(var i = 0;i < rows;i ++){
+	document.write("<tr align='center'>");
+		for(var j = 0;j < 7;j ++){
+				if(i == 0 && j < weeks || num > days){
+					document.write("<td></td>");
+				}else{
+					if(num == day){
+						document.write("<td bgcolor='red'>"+(num++)+"</td>");
+					}else{
+						document.write("<td>"+(num++)+"</td>");
+					}
+				}
+		}
+	document.write("</tr>");
+}
+document.write("</table>");
+//根据月份和是否闰年获取天数
+function getDays(month,runnian){
+	var days = 0;
+	switch (month){
+		case 	1:
+		case 3:
+		case 5:
+		case 7:
+		case 8:
+		case 10:
+		case 12:
+			days = 31;
+			break;
+		case 	4:
+		case 6:
+		case 9:
+		case 11:
+			days = 30;
+			break;	
+	}
+	if(month == 2 ){
+		if(runnian){
+			days = 29;	
+		}else{
+			days = 28;	
+		}	
+	}
+	return days;
+}
+</script>
+</head>
+
+<body>
+
+</body>
+</html>
