@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+		body{
+			margin: 0;
+		}
+		#box{
+			width: 200px;
+			height: 200px;
+			border: 1px solid;
+			margin: 200px auto 0 auto; 
+			background-color: blue;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+var box = document.getElementById("box");
+var msg = document.getElementById("msg");
+var msg1 = document.getElementById("msg1");
+box.onmousedown = function(event){
+	event = event || window.event;
+	var x1 = event.clientX;
+	var y1 = event.clientY;
+	var left = x1-box.offsetLeft;
+	var top = y1-box.offsetTop;
+	document.onmousemove = function(ex){
+		ex = ex || window.event;
+		var x2 = ex.clientX;
+		var y2 = ex.clientY;
+		var l = x2 - left;
+		var t = y2 - top;
+		box.style.marginLeft = l+"px";
+		box.style.marginTop = t+"px";
+	}
+	box.onmouseup = function(){
+		document.onmousemove = null;
+		box.onmouseup = null;
+	}
+}
+
+</script>

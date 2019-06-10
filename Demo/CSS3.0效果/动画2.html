@@ -1,0 +1,37 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="utf-8" />
+
+<style>
+.rect {  
+  position: absolute;  
+  top: 0px;  
+  left: 0px;  
+  width: 200px;  
+  height: 200px;  
+  border-radius: 5px;  
+  border: 1px solid #ccc;  
+  font-size: 125pt;  
+  text-align: center;  
+  line-height: 200px;  
+  background-color: #bbb;  
+  opacity: 0.5;  
+   animation: rotate 8s infinite linear;        /*每个循环8秒完成，匀速运动，无限循环*/
+  -webkit-animation: rotate 8s infinite linear;  /*weblit核心浏览器兼容代码*/
+  /*animation-play-state: paused;暂停*/
+}
+
+@-webkit-keyframes rotate {  
+  from { -webkit-transform: rotateY(0); }  
+  to { -webkit-transform: rotateY(-360deg); }  
+} 
+@keyframes rotate {  
+  from { -webkit-transform: rotateY(0); }  
+  to { -webkit-transform: rotateY(-360deg); }  
+}    
+</style>
+<body>
+<div class= "rect" >6</div>
+</body>
+</html>

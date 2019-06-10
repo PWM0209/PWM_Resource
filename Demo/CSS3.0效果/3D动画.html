@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CSS3 实现的3D动画效果</title>
+<style type="text/css">
+.out_box{width:500px; height:300px; margin:100px auto 0; overflow:hidden;}
+.out_box img{float:left;}
+#animate_3d{
+	-webkit-perspective:600; 
+	-webkit-transform-style:preserve-3d; 
+	-webkit-animation-name:x-spin; 
+	-webkit-animation-duration:7s; 
+	-webkit-animation-iteration-count:infinite; 
+	-webkit-animation-timing-function:linear;
+}
+.img_3d,.line_3d{
+	-webkit-transform-style:preserve-3d; 
+	-webkit-animation-iteration-count:infinite; 
+	-webkit-animation-timing-function:linear;
+}
+#animate_line_1{
+	-webkit-animation-name:y-spin;
+	-webkit-animation-duration:5s;
+}
+#animate_line_2{
+	-webkit-animation-name:back-y-spin;
+	-webkit-animation-duration:4s;
+}
+
+#animate_line_3{
+	-webkit-animation-name:y-spin;
+	-webkit-animation-duration:3s;
+}
+@-webkit-keyframes x-spin {
+	0%    { -webkit-transform:rotateX(0deg); }
+	50%   { -webkit-transform:rotateX(180deg); }
+	100%  { -webkit-transform:rotateX(360deg); }
+}
+@-webkit-keyframes y-spin {
+	0%    { -webkit-transform:rotateY(0deg); }
+	50%   { -webkit-transform:rotateY(180deg); }
+	100%  { -webkit-transform:rotateY(360deg); }
+}
+
+@-webkit-keyframes back-y-spin {
+	0%    { -webkit-transform:rotateY(360deg); }
+	50%   { -webkit-transform:rotateY(180deg); }
+	100%  { -webkit-transform:rotateY(0deg); }
+}
+</style>
+</head>
+
+<body>
+<div id="animate_3d" class="out_box">
+	<div id="animate_line_1" class="line_3d">
+       <img class="img_3d" src="../images/1.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/4.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/10.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/13.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/8.jpg" width="100" height="100"/>
+    </div>
+    <div id="animate_line_2" class="line_3d"> 	        
+       <img class="img_3d" src="../images/4.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/13.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/8.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/15.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/6.jpg" width="100" height="100"/>
+    </div>
+    <div id="animate_line_3" class="line_3d">	     
+       <img class="img_3d" src="../images/10.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/1.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/4.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/3.jpg" width="100" height="100"/>
+       <img class="img_3d" src="../images/15.jpg" width="100" height="100"/>
+    </div>
+</div>
+</body>
+</html>

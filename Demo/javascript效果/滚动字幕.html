@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+#d {
+	position:absolute;
+	background-color:#eee;
+	left:100px;top:100px;
+}
+#d div{
+    font-size:15px;
+	margin:5px;
+}
+</style>
+
+<script type="text/javascript">  
+function body_onload() {
+	var handler = setInterval(myfunc, 500);
+	var d = document.getElementById('d');
+	
+	function myfunc(){
+		d.appendChild(d.firstChild);
+	}
+	
+	d.onmouseover=function(){
+		clearInterval(handler);
+	}
+	d.onmouseout=function(){
+		handler=setInterval(myfunc, 500);
+	}
+}
+</script>
+</head>
+<body onload="body_onload()">
+    <div id="d">
+        <div>setAttribute	设置属性的值</div>
+        <div>removeChild	删除子节点</div>
+        <div>removeAttribute	删除属性</div>
+        <div>replaceChild	替换子节点</div>
+        <div>appendChild	追加子节点</div>
+        <div>createElement	创建元素节点</div>
+        <div>createTextNode	创建文本节点</div>
+        <div>insertBefore	前部插入节点</div>
+        <div>cloneNode	复制节点</div>
+    </div> 
+</body>
+</html>

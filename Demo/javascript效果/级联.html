@@ -1,0 +1,87 @@
+<!DOCTYPE html >
+<html >
+<head>
+<meta charset="utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+    <select id="sheng"></select>省
+    <select id="shi"></select>市
+    <select id="qu"></select>区
+</body>
+</html>
+<script>
+var sheng = document.getElementById("sheng");
+var shi = document.getElementById("shi");
+var qu = document.getElementById("qu");
+var tit =  document.createElement("option");//创建 请选择 的option
+tit.innerHTML = "请选择";
+var data = {txt:"中国",sheng:[
+		{txt:"四川",shi:[
+			{txt:"成都",qu:[{txt:"高新区"},{txt:"锦江区"}]},
+			{txt:"绵阳",qu:[{txt:"高新1区"},{txt:"锦江1区"}]},
+			{txt:"德阳",qu:[{txt:"高新2区"},{txt:"锦江2区"}]}
+		]},
+		{txt:"北京",shi:[
+			{txt:"北京",qu:[{txt:"朝阳区"},{txt:"朝阳2区"}]},
+		]}
+	]
+}
+window.onload = function(){
+	getsheng();
+	getshi();
+	getqu();	
+}
+sheng.onchange = function(){
+	getshi();
+	getqu();	
+}
+shi.onchange = function(){
+	getqu();	
+}
+function getsheng(){
+	sheng.options.length = 0;//清空下拉列表的option
+	var tit =  document.createElement("option");//创建 请选择 的option
+	tit.innerHTML = "请选择省";
+	sheng.appendChild(tit);
+	for(var i = 0;i < data.sheng.length;i ++){
+		var opSheng = document.createElement("option");
+		opSheng.innerHTML = data.sheng[i].txt;
+		sheng.appendChild(opSheng);
+	}	
+}
+function getshi(){
+	shi.options.length = 0;//清空下拉列表的option
+	var tit =  document.createElement("option");//创建 请选择 的option
+	tit.innerHTML = "请选择市";
+	shi.appendChild(tit);
+	for(var i = 0;i < data.sheng.length;i ++){
+		if(sheng.value == data.sheng[i].txt){
+			for(var j = 0;j < data.sheng[i].shi.length;j ++){
+				var opShi = document.createElement("option");
+				opShi.innerHTML = data.sheng[i].shi[j].txt;
+				shi.appendChild(opShi);
+			}	
+		}
+	}	
+}
+function getqu(){
+	qu.options.length = 0;//清空下拉列表的option
+	var tit =  document.createElement("option");//创建 请选择 的option
+	tit.innerHTML = "请选择区";
+	qu.appendChild(tit);
+	for(var i = 0;i < data.sheng.length;i ++){
+		for(var j = 0;j < data.sheng[i].shi.length;j ++){
+			if(shi.value == data.sheng[i].shi[j].txt){
+				for(var k = 0;k < data.sheng[i].shi[j].qu.length;k ++){
+					var opQu = document.createElement("option");
+					opQu.innerHTML = data.sheng[i].shi[j].qu[k].txt;
+					qu.appendChild(opQu);
+				}	
+			}
+		}	
+	}	
+}
+
+</script>

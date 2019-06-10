@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body onload="getAllStu('msg')">
+学号：<input id="num"><br>
+姓名：<input id="name"><br>
+年龄：<input id="age"><br>
+性别：
+<select id="sex">
+	<option value="男">男</option>
+	<option value="女">女</option>
+</select><br>
+<button type="button" onclick="add()">存储</button><button type="button" onclick="upda()">修改</button>
+<p id="msg"></P>
+</body>
+</html>
+<script type="text/javascript">
+
+var db = openDatabase('myDB','','message database',102400);
+
+function getAllStu(id){
+	var content = document.getElementById(id);
+	content.innerHTML = "";
+	db.transaction(function(tx){
+		//1.创建数据表
+		tx.executeSql('create table if not exists Student(id unique,name,age,sex)',[]);//一定先创建表
+		tx.executeSql('select * from Student',[],function(tx,rs){
+			for (var i = 0; i < rs.rows.length; i++) {
+				
+				content.innerHTML +="<span onclick='show("+rs.rows.item(i).id+")'>"+rs.rows.item(i).id+"&nbsp;"+rs.rows[i].name+"&nbsp;"+rs.rows[i].age+"&nbsp;"+rs.rows[i].sex+"</span><button type='button' onclick='del("+rs.rows.item(i).id+")'>删除</button><br>";
+			};
+		},function(tx,err){
+			alert(err.source+"::"+err.message);
+		})
+	});
+}
+function upda(){
+	var age = document.getElementById("age").value;
+	var name = document.getElementById("name").value;
+	var num = document.getElementById("num").value;
+	var sex = document.getElementById("sex").value;
+	db.transaction(function(tx){
+		tx.executeSql('update Student set name=?,age=?,sex=? where id=?',[name,age,sex,num],function(tx,rs){
+			getAllStu('msg');
+		},function(tx,err){
+			alert(err.source+"::"+err.message);
+		})
+	});
+}
+function del(id){
+	db.transaction(function(tx){
+		tx.executeSql('delete from Student where id=?',[id],function(tx,rs){
+			getAllStu('msg');
+		},function(tx,err){
+			alert(err.source+"::"+err.message);
+		})
+	});
+}
+function show(id){
+	db.transaction(function(tx){
+		tx.executeSql('select * from Student where id=?',[id],function(tx,rs){
+			document.getElementById("age").value = rs.rows.item(0).age;
+			document.getElementById("name").value = rs.rows.item(0).name;
+			document.getElementById("num").value = id;
+			document.getElementById("sex").value = rs.rows.item(0).sex;
+		},function(tx,err){
+			alert(err.source+"::"+err.message);
+		})
+	});
+	
+}
+function add(){
+	var age = document.getElementById("age").value;
+	var name = document.getElementById("name").value;
+	var num = document.getElementById("num").value;
+	var sex = document.getElementById("sex").value;
+	db.transaction(function(tx){
+		
+		//2.操作数据表
+		tx.executeSql('insert into Student(id,name,age,sex) values(?,?,?,?)',[num,name,age,sex],function(tx,rs){
+			getAllStu('msg');
+
+		},function(tx,err){
+			alert(err.source+"::"+err.message);
+		});
+	});
+}
+</script>

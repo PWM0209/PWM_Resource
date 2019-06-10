@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+		body{
+			margin: 0;
+		}
+		#small{
+			width: 160px;
+			height: 120px;
+			background-image: url("sj.jpg");
+			background-repeat: no-repeat;
+			background-size: 160px 120px;
+			position: relative;
+			margin: 0 auto;
+		}
+		#big{
+			position: absolute;
+			top: 0;
+			left: 160px;
+			width: 400px;
+			height: 300px;
+			background-image: url("sj.jpg");
+			background-repeat: no-repeat;
+			display: none;
+		}
+		</style>
+	</head>
+	<body>
+		<h1 align="center">放大镜2</h1>
+		<div id="small">
+			<div id="big"></div>
+		</div>
+		
+	</body>
+</html>
+<script type="text/javascript">
+var small = document.getElementById("small");
+var big = document.getElementById("big");
+var msg = document.getElementById("msg");
+small.onmouseover = function(){
+	big.style.display = "block";
+	small.onmousemove = function(eve){
+		eve = eve || window.event;
+		var x = eve.clientX-small.offsetLeft;
+		var y = eve.clientY-small.offsetTop;
+		var beishuW = 800/small.offsetWidth;
+		var beishuH = 600/small.offsetHeight;
+		if(x < 200/beishuW){
+			x = 200/beishu;
+		}
+		if(y < 150/beishuH){
+			y = 150/beishu;
+		}
+		if(y > 450/beishuH){
+	    y = 450/beishuH;
+		}
+		if(x > 600/beishuW){
+			x = 600/beishuW;
+		}
+		var bx = parseInt(x*(800/160))*-1+200;
+		var by = parseInt(y*(600/120))*-1+150;
+		
+		big.style.backgroundPosition = bx+"px "+by+"px";
+	}
+}
+small.onmouseout = function(){
+	big.style.display = "none";
+}
+</script>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<video id="vid" src="play.mp4" windth="400" height="300" loop controls></video>
+<br>
+<button onclick="play()" id="btn">播放</button><span id="msg"></span>
+</body>
+</html>
+<script type="text/javascript">
+var vid = document.getElementById("vid");
+var btn = document.getElementById("btn");
+function play(){
+	if(vid.paused){
+		vid.play();
+		btn.innerHTML = "暂停";
+	}else{
+		vid.pause();
+		btn.innerHTML = "播放";	
+	}
+	
+}
+vid.addEventListener("timeupdate",function(){
+	var msg = document.getElementById("msg");
+	msg.innerHTML = Math.floor(vid.currentTime)+"/"+Math.floor(vid.duration)+"秒";
+},false);
+</script>

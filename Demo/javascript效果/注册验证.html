@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>练习 9.3</title>
+</head>
+<script type="text/javascript">
+function form_onsubmit(){
+	document.getElementById('tdTxtName').innerHTML = "";
+	document.getElementById('tdTxtPwd').innerHTML = "";
+	document.getElementById('tdTxtRePwd').innerHTML = "";
+	document.getElementById('tdTxtEmail').innerHTML = "";
+	document.getElementById('tdTxtAge').innerHTML = "";
+	document.getElementById('tdRdnSex').innerHTML = "";
+
+	var checkFlag = true;
+	var name =  document.getElementById('txtName').value;
+	if(name == ""){
+		document.getElementById('tdTxtName').innerHTML = "用户名不能为空！";
+		checkFlag = false;
+	}
+	var pwd = document.getElementById('txtPwd').value;
+	var rePwd = document.getElementById('txtRePwd').value;
+	if (pwd=='' || rePwd=='') {
+		document.getElementById('tdTxtPwd').innerHTML = "密码不能为空！";
+		checkFlag = false;
+	} else if(rePwd != pwd){
+		document.getElementById('tdTxtRePwd').innerHTML = "两次输入密码不一致！";
+		checkFlag = false;
+	}
+	//验证邮件地址
+	var email = document.getElementById('txtEmail').value;
+	if(email == ""){
+		document.getElementById('tdTxtEmail').innerHTML = "邮件地址不能为空！";
+		checkFlag = false;			
+	}
+	var at = email.indexOf('@');
+	var dot = email.indexOf('.');
+	if(at == -1 || dot == -1 || dot - at < 2){
+		document.getElementById('tdTxtEmail').innerHTML = "邮件地址格式错误！";
+		checkFlag = false;
+	}
+	//验证年龄
+	var age = document.getElementById('txtAge').value;
+	if(age == ""){
+		document.getElementById('tdTxtAge').innerHTML = "年龄不能为空！";
+		checkFlag = false;
+	}else if(isNaN(age)){
+		document.getElementById('tdTxtAge').innerHTML = "年龄应该是数字！";
+		checkFlag = false;
+	}
+	//验证性别	
+	var sex = document.getElementsByName('rdnSex');
+	if(sex[0].checked==false && sex[1].checked==false){
+		document.getElementById('tdRdnSex').innerHTML = "没有选择性别！";
+		checkFlag = false;
+	}
+
+	return checkFlag;
+}
+</script>
+<body>
+<form onSubmit="return form_onsubmit();" method="post" action="x.html">
+	<h1>欢迎您注册成为新用户</h1>
+  <table width="600">
+    <tr>
+      <td>用户名：</td>
+      <td>
+        <input type="text" name="txtName" id="txtName">
+      </td>
+	  <td id="tdTxtName"></td>
+    </tr>
+    <tr>
+      <td>密码：</td>
+      <td><input type="password" name="txtPwd" id="txtPwd"></td>
+	  <td id="tdTxtPwd"></td>
+    </tr>
+    <tr>
+      <td>新密码：</td>
+      <td><input type="password" name="txtRePwd" id="txtRePwd"></td>
+	  <td id="tdTxtRePwd"></td>
+    </tr>
+    <tr>
+      <td>性别：</td>
+      <td>
+        <input type="radio" name="rdnSex" value="男">
+        男  
+        <input type="radio" name="rdnSex" value="女">
+        女
+      </td>
+	  <td id="tdRdnSex"></td>
+    </tr>
+    <tr>
+      <td>年龄：</td>
+      <td><input type="text" name="txtAge" id="txtAge"></td>
+	  <td id="tdTxtAge"></td>
+    </tr>
+    <tr>
+      <td>邮件地址：</td>
+      <td><input type="text" name="txtEmail" id="txtEmail"></td>
+	  <td id="tdTxtEmail"></td>
+    </tr>
+    <tr>
+      <td colspan="3"><input type="submit" value="确定"></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

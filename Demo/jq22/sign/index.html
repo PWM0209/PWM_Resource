@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<script src="js/mui.min.js"></script>
+<link href="css/mui.min.css" rel="stylesheet" />
+<script src="js/jquery1.11.3.min.js"></script>
+<script type="text/javascript" src="js/jSignature.min.js"></script>
+<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/flashcanvas.js"></script>
+		<![endif]-->
+</head>
+<body>
+<h3>请在下方签名</h3>
+<div id="signature" style="height: 100%;"></div>
+<br>
+<input id="clear" type="button" value="清除">
+<input id="export" type="button" value="输出图片">
+<input id="save" type="button" value="保存base64">
+<div id="pic" />
+<p id="base" style="width:100%;"></p>
+<script type="text/javascript" charset="utf-8">
+			mui.plusReady(function() {
+				plus.screen.lockOrientation('landscape-secondary');
+			});
+			$(document).ready(function() {
+				$("#signature").jSignature()
+			});
+			document.getElementById("clear").addEventListener('tap', function() {
+				$("#signature").jSignature("reset");
+				$("#pic")[0].innerHTML = '';
+			});
+			document.getElementById("save").addEventListener('tap', function() {
+				var datapair = $("#signature").jSignature("getData", "image");
+				var array = datapair.splice(",");
+				mui.toast(array[1]);
+			});
+			document.getElementById("export").addEventListener('tap', function() {
+				var datapair = $("#signature").jSignature("getData", "image");
+				var i = new Image();
+				i.src = "data:" + datapair[0] + "," + datapair[1];
+				$(i).appendTo($("#pic"));
+			});
+		</script>
+</body>
+</html>

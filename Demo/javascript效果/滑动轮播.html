@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#box{
+				width: 400px;
+				height: 300px;
+				overflow:hidden;
+				position: relative;
+				margin:0 auto;
+			}
+			#left{
+				width: 20px;
+				background-color: #ccc;
+				height: 300px;
+				line-height: 300px;
+				text-align: center;
+				font-weight: bolder;
+				position: absolute;
+				top: 0;
+				left: 0px;
+			}
+			#right{
+				width: 20px;
+				background-color: #ccc;
+				height: 300px;
+				line-height: 300px;
+				text-align: center;
+				font-weight: bolder;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			#imgs{
+				width: 1600px;
+				height: 300px;
+				margin-left:-400px;
+				border:1px solid;
+			}
+			img{
+				-webkit-transition:margin-left 1s linear;
+				transition:margin-left 1s linear;
+				}
+		</style>
+	</head>
+	<body>
+    <h1 align="center">滑动轮播</h1>
+		<div id="box">
+			<button id="left"><</button>
+			<div id="imgs"><img src="Sunset.jpg" width="400" height="300" name="image"><img src="Winter.jpg" width="400" height="300" name="image"><img src="sj.jpg" width="400" height="300" name="image"></div>
+			<button id="right">></button>
+		</div>
+
+	</body>
+</html>
+<script type="text/javascript">
+var left = document.getElementById("left");
+var right = document.getElementById("right");
+var imgs = document.getElementById("imgs");
+left.onclick = function(){
+	var images = document.getElementsByName("image");
+	var f =images[0].cloneNode(true);
+	images[0].style.marginLeft ="-400px";
+	setTimeout(function(){
+		imgs.removeChild(images[0]);
+		imgs.insertBefore(f,null);
+	},1000);
+} 
+right.onclick = function(){
+	var images = document.getElementsByName("image");
+	var f =images[2].cloneNode(true);
+	var t =images[0].cloneNode(true);
+	images[0].style.marginLeft ="400px";
+	setTimeout(function(){
+		imgs.replaceChild(t,image[0]);//解决margin-left的BUG
+		imgs.removeChild(images[2]);
+		imgs.insertBefore(f,images[0]);
+	},1000);
+}
+</script>

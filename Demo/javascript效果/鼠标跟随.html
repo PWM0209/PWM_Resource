@@ -1,0 +1,18 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>练习 9.2</title>
+</head>
+<script type="text/javascript">
+function body_onmousemove(e){
+	var x = e.x?e.x:e.clientX;
+	var y = e.y?e.y:e.clientY;	
+	var d = document.getElementById('d');
+	d.style.left = x;
+	d.style.top = y;
+}
+</script>
+<body onmousemove="body_onmousemove(event)">
+	<div id="d" style="position:absolute">跟随鼠标</div>
+</body>
+</html>
